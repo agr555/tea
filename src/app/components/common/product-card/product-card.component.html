@@ -1,0 +1,14 @@
+<div class="product col d-flex justify-content-center">
+  <!--          //////////-->
+  <div class="card" style="width: 26rem; ">
+    <a class="card-image d-flex justify-content-center align-content-center image-popup-vertical-fit"
+       href="{{product.image}}" title="">
+      <img src="{{product.image}}" class="card-img-top " style="width: 140px; height: 140px" alt="Card 1">
+    </a>
+    <div class="card-body pt-0">
+      <h5 class="card-title">{{product.title }}</h5>
+      <p class="card-text">{{product.description  | shorterPipe }}</p>
+      <button class="btn btn-primary" [routerLink]="['/products', product.id]">Подробнее</button>
+    </div>
+  </div>
+</div>
