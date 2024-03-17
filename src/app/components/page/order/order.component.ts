@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, NgForm, Validators} from "@angular/forms";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProductService} from "../../../services/product.service";
 
@@ -11,10 +11,18 @@ import {ProductService} from "../../../services/product.service";
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit, OnDestroy {
+/*  private modalObservable: Observable<string>;// = null;
+  private modalSubscription: Subscription | null = null;*/
 
-
+  private modal: HTMLElement| null = null;
+  private formOrder: HTMLElement| null = null;
+  private errorOrder: HTMLElement| null = null;
+  // private errorTitle: HTMLElement| null = null;
+  private modalObservable: Observable<string>;// = null;
+  private modalSubscription: Subscription | null = null;
+  public modalText:string |null ='';
   checkoutForm = this.fb.group({
-    product: ['', Validators.required],
+    product: [''],// Validators.required],
     name: ['', [Validators.required, Validators.pattern("^[a-zA-Zа-яА-Я]+$")]],
     last_name: ['', [Validators.required, Validators.pattern("^[a-zA-Zа-яА-Я]+$")]],
     phone: ['', [Validators.required, Validators.pattern("^[+][0-9]{11}$")]],
@@ -36,40 +44,77 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   }
 
-  constructor(private fb: FormBuilder, //private cartService: CartService,
+  constructor(private fb: FormBuilder,
               private activatedRoute: ActivatedRoute, private productService: ProductService,
               private router: Router) {
+    this.modalObservable = new Observable((obs ) => {
+      setTimeout(() => {
+        obs.next();
+      }, 3000);
+    });
   }
 
   private subscription: Subscription | null = null;
   private subscriptionOrder: Subscription | null = null;
 
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    this.modal = document.getElementById('modal');
+    this.formOrder = document.getElementById('formOrder');
+    this.errorOrder = document.getElementById('errorOrder');
     this.subscription = this.activatedRoute.queryParams.subscribe((params) => {
       if (params['product']) {
         this.formValues.productTitle = params['product'];
+      } else {
+        this.showModalAll(this.modal,'Товар не добавлен в корзину! Выберите сначала чай!');
       }
     });
+    if (this.errorOrder) this.errorOrder.style.display = 'none';
+
+
+
   }
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
     this.subscriptionOrder?.unsubscribe();
-    console.log('unsubscript: order');
+    console.log('unsubscribe: order');
   }
+  /*hideModal(){
+    if (this.modal) this.modal.style.display = 'none';
+    this.router.navigate(['/']);
 
+  }
+  hideForm(){
+    if (this.formOrder) this.formOrder.style.display = 'none';
+    if (this.modal) this.modal.style.display = 'block';
+
+  }*/
+  hideModalAll(modalWindowName: string | null, flag: boolean) {
+    if (modalWindowName === 'formOrder') {
+      if (this.formOrder) {
+        this.formOrder.style.display = 'none';
+      }
+    } else {
+      if (modalWindowName === 'modal') {
+        if (this.modal) {
+          this.modal.style.display = 'none';
+        }
+      }
+    }
+    if (flag){this.router.navigate(['/'])};
+  }
+  showModalAll(modalName: HTMLElement | null, modalText: string | null){
+    this.modalText = modalText;
+    if (modalName) modalName.style.display = 'block';
+  }
   createOrder(): void {
     if (!this.formValues.productTitle) {
-      alert("Выберите сначала чай!");
+      this.showModalAll(this.modal,'Товар не добавлен в корзину! Выберите сначала чай!');
       return;
     }
-   /* if (siForm.valid) {
-      console.log('OK');
-    } else {
-      console.log('invalid');
-    }*/
     this.subscriptionOrder = this.productService.sendOrder({
+      //name: '',
       name: this.formValues.name,
       last_name: this.formValues.last_name,
       phone: this.formValues.phone,
@@ -84,11 +129,11 @@ export class OrderComponent implements OnInit, OnDestroy {
         {
           next: (response) => {
             if (response.success && !response.message) {
-              alert('Спасибо за заказ!');
+              this.hideModalAll('formOrder',false);
+              this.showModalAll(this.modal,'Спасибо за заказ!');
 
               this.formValues = {
                 name: '',
-                // name: this.formValues.productTitle, // тк имя не совпадает
                 last_name: '',
                 phone: '',
                 country: '',
@@ -97,9 +142,14 @@ export class OrderComponent implements OnInit, OnDestroy {
                 address: '',
                 comment: ''
               }
-              this.router.navigate(['/order-finish']);
             } else {
-              alert('Error!')
+              if (this.errorOrder) this.errorOrder.style.display = 'block';
+              this.showModalAll(this.modal,'Произошла ошибка. Попробуйте еще раз.');
+              // this.hideModalAll('modal', true,);
+              this.modalSubscription = this.modalObservable.subscribe((): void => {
+                this.hideModalAll('modal',true );
+                this.hideModalAll('formOrder',true );
+              })
             }            // тут нужно добавить не только next. но и error!!!
           },
           error: (error) => {

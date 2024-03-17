@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Subject} from "rxjs";
+import {Component, OnInit} from '@angular/core';
+import {Observable, Subject, Subscriber, Subscription} from "rxjs";
 
 @Component({
   selector: 'main',
@@ -7,31 +7,34 @@ import {Subject} from "rxjs";
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  private subject:Subject<number>;
-  lateData: Promise<string> | null = null;
+
+  private modalObservable: Observable<string>;// = null;
+  private modalSubscription: Subscription | null = null;
+
+  private modal: HTMLElement | null = null;
+
   constructor() {
-    this.subject = new Subject<number>();
-
-    let count = 100;
-    const interval1 =  setInterval(() => {
-      this.subject.next(count++);
-    }, 1000);
-
-    const timeout1 = setTimeout(() => {
-      this.subject.complete()
-    }, 6000);
 
 
-  }
-  ngOnInit(){
-
-    this.lateData = new Promise <string>(function (resolve) {
+    this.modalObservable = new Observable((obs) => {
       setTimeout(() => {
-        resolve('Hello');
-      }, 3000);
+        obs.next();
+      }, 10000);
+    });
+  }
+
+  ngOnInit() {
+    this.modal = document.getElementById('modal');
+    this.modalSubscription = this.modalObservable.subscribe((): void => {
+      this.showModal();
     })
   }
-  /*ngOnInit(): void {
-  }*/
 
+  hideModal() {
+    if (this.modal) this.modal.style.display = 'none';
+  }
+
+  showModal() {
+    if (this.modal) this.modal.style.display = 'block';
+  }
 }

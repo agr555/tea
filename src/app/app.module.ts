@@ -42,6 +42,6 @@ declare var $: any;
     ReactiveFormsModule
   ],
   providers: [ ProductService],
-  bootstrap: [AppComponent, HeaderComponent, FooterComponent, PopupComponent]
+  bootstrap: [AppComponent, HeaderComponent, FooterComponent]
 })
 export class AppModule { }

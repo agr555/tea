@@ -6,22 +6,23 @@
           Сделать заказ
         </div>
         <div class="modal-body p-3">
-          <form class="row g-4 needs-validation  p-2  justify-content-between"
+          <form class="row g-4 needs-validation  p-2  justify-content-between" id="formOrder"
                 novalidate [formGroup]="checkoutForm" #siForm="ngForm">
             <div class="col-md-12 ">
               <label for="validationCustom01" class="form-label ">Товар</label>
               <input type="text" class="form-control  p-1" id="validationCustom01"
-                     [(ngModel)]="formValues.productTitle" formControlName="product">
-              <div class="invalid-feedback" *ngIf="checkoutForm.get('product')?.invalid
+                     value="{{formValues.productTitle}}" disabled>
+              <!--<div class="invalid-feedback" *ngIf="checkoutForm.get('product')?.invalid
                 && checkoutForm.get('product')?.errors?.['required']">
                 Товар не добавлен в корзину!
-              </div>
+              </div>-->
             </div>
-
+            <!--       <div>{{ttt}}</div>
+                   modalText-->
             <div class="col-md-4 ">
               <label for="name" class="form-label ">Имя</label>
               <input type="text" class="form-control  p-1" id="name"
-                     [(ngModel)] = "formValues.name" formControlName="name">
+                     [(ngModel)]="formValues.name" formControlName="name">
               <div class="invalid-feedback" *ngIf="checkoutForm.get('name')?.invalid
                 && (checkoutForm.get('name')?.touched || checkoutForm.get('name')?.dirty)
                 && checkoutForm.get('name')?.errors?.['required']">
@@ -36,7 +37,7 @@
             <div class="col-md-4 ">
               <label for="validationCustom03" class="form-label ">Фамилия</label>
               <input type="text" class="form-control  p-1 " id="validationCustom03" required
-                     [(ngModel)] = "formValues.last_name" formControlName="last_name" >
+                     [(ngModel)]="formValues.last_name" formControlName="last_name">
               <div class="invalid-feedback" *ngIf="checkoutForm.get('last_name')?.invalid
                 && (checkoutForm.get('last_name')?.touched || checkoutForm.get('last_name')?.dirty)
                 && checkoutForm.get('last_name')?.errors?.['required']">
@@ -51,7 +52,7 @@
             <div class="col-md-4  ">
               <label for="validationCustom04" class="form-label ">Телефон</label>
               <input type="text" class="form-control  p-1 " id="validationCustom04"
-                     [(ngModel)] = "formValues.phone" formControlName="phone">
+                     [(ngModel)]="formValues.phone" formControlName="phone">
               <div class="invalid-feedback" *ngIf="checkoutForm.get('phone')?.invalid
                 && (checkoutForm.get('phone')?.touched || checkoutForm.get('phone')?.dirty)
                 && checkoutForm.get('phone')?.errors?.['required']">
@@ -66,7 +67,7 @@
             <div class="col-md-6">
               <label for="validationCustom05" class="form-label ">Страна</label>
               <input type="text" class="form-control  p-1 " id="validationCustom05"
-                     [(ngModel)] = "formValues.country" formControlName="country">
+                     [(ngModel)]="formValues.country" formControlName="country">
               <div class="invalid-feedback" *ngIf="checkoutForm.get('country')?.invalid
                 && (checkoutForm.get('country')?.touched || checkoutForm.get('country')?.dirty)
                 && checkoutForm.get('country')?.errors?.['required']">
@@ -77,7 +78,7 @@
             <div class="col-md-6">
               <label for="validationCustom06" class="form-label ">Индекс</label>
               <input type="text" class="form-control  p-1 " id="validationCustom06"
-                     [(ngModel)] = "formValues.zip" formControlName="zip">
+                     [(ngModel)]="formValues.zip" formControlName="zip">
               <div class="invalid-feedback" *ngIf="checkoutForm.get('zip')?.invalid
                 && (checkoutForm.get('zip')?.touched || checkoutForm.get('zip')?.dirty)
                 && checkoutForm.get('zip')?.errors?.['required']">
@@ -88,7 +89,7 @@
             <div class="col-md-12">
               <label for="validationCustom07" class="form-label ">Адрес</label>
               <input type="text" class="form-control  p-1 " id="validationCustom07"
-                     [(ngModel)] = "formValues.address" formControlName="address">
+                     [(ngModel)]="formValues.address" formControlName="address">
 
               <div class="w-100 invalid-feedback" *ngIf="checkoutForm.get('address')?.invalid
                 && (checkoutForm.get('address')?.touched || checkoutForm.get('address')?.dirty)
@@ -105,21 +106,17 @@
             <div class="col-md-12">
               <label for="validationCustom08" class="form-label ">Комментарий к заказу</label>
               <input type="text" class="form-control  p-1 " id="validationCustom08"
-                     [(ngModel)] = "formValues.comment" formControlName="comment">
-             <!-- <div class="invalid-feedback" *ngIf="checkoutForm.get('comment')?.invalid
-                && (checkoutForm.get('comment')?.touched || checkoutForm.get('comment')?.dirty)
-                && checkoutForm.get('comment')?.errors?.['required']">
-                Напишите ваш комментарий.
-              </div>-->
+                     [(ngModel)]="formValues.comment" formControlName="comment">
             </div>
             <div class="col  justify-content-between">
-              <a href="#test-popup"
-                 class="btn btn-primary py-2 px-4 border rounded-1"
-                 id="form-send-btn" type="submit" routerLink="/popup">
-                Отправить, старая с #test-popup
-              </a>
-              <button class="btn btn-primary py-2 px-4 border rounded-1"  routerLink="/popup"  >открой popup</button>
-              <button class="btn btn-primary py-2 px-4 border rounded-1"  [disabled]="siForm.invalid" (click)="createOrder()" >Купить</button>
+              <button class="btn btn-primary py-2 px-4 border rounded-1" [disabled]="siForm.invalid"
+                      (click)="createOrder()">Купить
+              </button>
+
+              <!-- Button trigger modal -->
+              <!--              <button class="btn btn-primary py-2 px-4 border rounded-1"  (click)="showModal()" >открой popup</button>-->
+
+              <div class="errorOrder text-danger mt-2" id="errorOrder">Произошла ошибка. Попробуйте еще раз.</div>
             </div>
           </form>
         </div>
@@ -129,6 +126,29 @@
     </div>
   </div>
 </section>
+
+<!-- Modal for see Thanks for order -->
+<div class="modal" id="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--        <h5 class="modal-title text-center">Спасибо за заказ!</h5>-->
+        <h5 class="modal-title text-center">{{modalText}}</h5>
+
+        <button type="button" class="btn-close" (click)='hideModalAll("modal",true)'></button>
+      </div>
+      <!--      <div class="modal-body">
+              <p>Посмотрите наши чайные коллекции</p>
+            </div>-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary text-center" (click)='hideModalAll("modal",true)'>Вернуться на
+          главную страницу
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--<form class="needs-validation container" novalidate [formGroup]="checkoutForm">
   <div class="row g-3">
     <div class="col-sm-6">
