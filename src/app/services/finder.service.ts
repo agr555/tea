@@ -1,21 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Injectable, Input} from '@angular/core';
+import {Subject, Subscription, tap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ProductService} from "../../../services/product.service";
-import {ProductType} from "../../../types/product.type";
-import {Subscription, catchError, map, of, retry, tap} from 'rxjs';
-import {FinderService} from "../../../services/finder.service";
+import {Router} from "@angular/router";
+import {ProductService} from "./product.service";
+import {ProductType} from "../types/product.type";
 
-@Component({
-  selector: 'products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
-})
-export class ProductsComponent implements OnInit {
+@Injectable(/*{
+  providedIn: 'root'
+}*/)
+export class FinderService {
   @Input() product: ProductType;
-
-  constructor(private productService: ProductService,public finderService: FinderService,
-              private http: HttpClient, private router: Router) {
+  constructor( private http: HttpClient, private router: Router,public productService: ProductService,
+      ) {
     this.product = {
       id: 0,
       image: '',
@@ -23,8 +19,12 @@ export class ProductsComponent implements OnInit {
       price: 0,
       description: '',
     }
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
+
+  private isFound = '';
+  public isFound$: Subject<string> = new Subject<string>();
+  inputStr: string | null = '';
+
 
   public products: ProductType[] = [];
   loading: boolean = false; //true;
@@ -32,29 +32,28 @@ export class ProductsComponent implements OnInit {
   private findStr: HTMLElement | null = null;
   public search: string | null = '';
   private subscription1: Subscription | null = null;
-  inputStr: string | null = '';
 
-  ngOnInit(): void {
-    // this.finderService.getRouteData();
-    this.getRouteData();
+  getStr() {
+    this.isFound = (document.getElementById('findStr') as HTMLInputElement).value;
+    this.isFound$.next(this.isFound);
   }
-
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
-    this.subscription1?.unsubscribe();
-    console.log('unsubscribe: products')
+  searchFinder(){
+    this.inputStr=(document.getElementById('findStr') as HTMLInputElement).value;
+    console.log(this.inputStr);
   }
-
-  ngOnChanges() {
+  clearStr() {
+    this.isFound ='';
+    this.isFound$.next(this.isFound);
+  }
+  isLoggedIn(): string {
+    return this.isFound;
+  }
+  clearFinder(){
+    console.log('clearFinder');
     this.router.navigate(['/products']);
   }
+  public getRouteData() {
 
-
-  update() {
-  //  this.getRouteData();
-  }
-
-  getRouteData() {
     this.findStr = document.getElementById('findStr');
     this.loading = true;
 
@@ -64,7 +63,7 @@ export class ProductsComponent implements OnInit {
       this.subscription = this.productService.getProductFind(this.inputStr)
         .pipe(
           tap(() => {
-            this.loading = false;
+           // this.loading = false;
           })
         )
         .subscribe(
@@ -91,6 +90,7 @@ export class ProductsComponent implements OnInit {
             next: (data) => {
               console.log(data);
               this.products = data;
+              this.products =  Object.values(data);
               this.router.navigate(['/products']);
               console.log('subscribe getProduct');
             },

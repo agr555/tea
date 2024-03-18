@@ -18,9 +18,12 @@
             <a [routerLink]="'/products'" class="nav-link text-opacity-60 " >Каталог</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Поиск чая" aria-label="Search">
-          <button class="btn btn-outline-primary px-4 hvr-buzz" type="submit">Найти</button>
+        <form class="d-flex" role="search" >
+          <input class="form-control me-2" type="search" placeholder="Поиск чая" aria-label="Search" id="findStr" #filter >
+          <button class="btn btn-primary px-4 hvr-buzz" [routerLink]="['/products']" type="button"  (click)="filterResults(filter.value)">Найти</button>
+          <button class="btn btn-outline-secondary px-4 hvr-buzz" type="reset" [routerLink]="['/products']" (click)="clearFinder()">Отменить</button>
+          <button class="btn btn-outline-secondary px-4 hvr-buzz" type="reset" [routerLink]="['/products']">Отменить</button>
+<!--          (click)='modalService.hideModalAll("modal",true)'-->
         </form>
       </div>
     </div>

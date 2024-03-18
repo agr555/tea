@@ -3,7 +3,8 @@ import {FormBuilder, NgForm, Validators} from "@angular/forms";
 import {Observable, Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProductService} from "../../../services/product.service";
-
+import {OrderService} from "../../../services/order.service";
+import {ModalService} from "../../../services/modal.service";
 
 @Component({
   selector: 'order',
@@ -46,6 +47,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private activatedRoute: ActivatedRoute, private productService: ProductService,
+              private orderService: OrderService,public modalService: ModalService,
               private router: Router) {
     this.modalObservable = new Observable((obs ) => {
       setTimeout(() => {
@@ -66,7 +68,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       if (params['product']) {
         this.formValues.productTitle = params['product'];
       } else {
-        this.showModalAll(this.modal,'Товар не добавлен в корзину! Выберите сначала чай!');
+        this.modalService.showModalAll(this.modal,'Товар не добавлен в корзину! Выберите сначала чай!');
       }
     });
     if (this.errorOrder) this.errorOrder.style.display = 'none';
@@ -90,7 +92,9 @@ export class OrderComponent implements OnInit, OnDestroy {
     if (this.modal) this.modal.style.display = 'block';
 
   }*/
-  hideModalAll(modalWindowName: string | null, flag: boolean) {
+
+
+/*  hideModalAll(modalWindowName: string | null, flag: boolean) {
     if (modalWindowName === 'formOrder') {
       if (this.formOrder) {
         this.formOrder.style.display = 'none';
@@ -108,12 +112,15 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.modalText = modalText;
     if (modalName) modalName.style.display = 'block';
   }
+  */
+
   createOrder(): void {
     if (!this.formValues.productTitle) {
-      this.showModalAll(this.modal,'Товар не добавлен в корзину! Выберите сначала чай!');
+      this.modalService.showModalAll(this.modal,'Товар не добавлен в корзину! Выберите сначала чай!');
       return;
     }
-    this.subscriptionOrder = this.productService.sendOrder({
+
+    this.subscriptionOrder = this.orderService.sendOrder({
       //name: '',
       name: this.formValues.name,
       last_name: this.formValues.last_name,
@@ -129,8 +136,8 @@ export class OrderComponent implements OnInit, OnDestroy {
         {
           next: (response) => {
             if (response.success && !response.message) {
-              this.hideModalAll('formOrder',false);
-              this.showModalAll(this.modal,'Спасибо за заказ!');
+              this.modalService.hideModalAll('formOrder',false);
+              this.modalService.showModalAll(this.modal,'Спасибо за заказ!');
 
               this.formValues = {
                 name: '',
@@ -144,11 +151,11 @@ export class OrderComponent implements OnInit, OnDestroy {
               }
             } else {
               if (this.errorOrder) this.errorOrder.style.display = 'block';
-              this.showModalAll(this.modal,'Произошла ошибка. Попробуйте еще раз.');
+              this.modalService.showModalAll(this.modal,'Произошла ошибка. Попробуйте еще раз.');
               // this.hideModalAll('modal', true,);
               this.modalSubscription = this.modalObservable.subscribe((): void => {
-                this.hideModalAll('modal',true );
-                this.hideModalAll('formOrder',true );
+                this.modalService.hideModalAll('modal',true );
+                this.modalService.hideModalAll('formOrder',true );
               })
             }            // тут нужно добавить не только next. но и error!!!
           },

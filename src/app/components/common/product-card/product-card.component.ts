@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ProductType} from "../../../types/product.type";
+import {FinderService} from "../../../services/finder.service";
+import {ProductService} from "../../../services/product.service";
 
 @Component({
   selector: 'product-card',
@@ -8,7 +10,7 @@ import {ProductType} from "../../../types/product.type";
 })
 export class ProductCardComponent implements OnInit {
   @Input() product: ProductType;
-  constructor() {
+  constructor(public finderService: FinderService,private productService: ProductService,) {
     this.product = {
       id: 0,
       image: '',

@@ -10,14 +10,19 @@ import { ProductsComponent } from './components/page/products/products.component
 import { AdvancedComponent } from './components/common/advanced/advanced.component';
 import { MainComponent } from './components/page/main/main.component';
 import { OrderComponent } from './components/page/order/order.component';
-import { OrderFinishComponent } from './components/page/order-finish/order-finish.component';
+// import { OrderFinishComponent } from './components/page/order-finish/order-finish.component';
 import { ProductCardComponent } from './components/common/product-card/product-card.component';
 import {ProductService} from "./services/product.service";
 import {HttpClientModule} from "@angular/common/http";
 import {ShorterPipePipe} from "./pipes/shorter-pipe.pipe";
 import { ProductComponent } from './components/page/product/product.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import { PopupComponent } from './components/common/popup/popup.component';
+import {FormsModule,ReactiveFormsModule} from "@angular/forms";
+import {OrderService} from "./services/order.service";
+import {ModalService} from "./services/modal.service";
+import { FindNamePipe } from './pipes/find-name.pipe';
+import { FindNameDirective } from './directives/find-name.directive';
+import {FinderService} from "./services/finder.service";
+// import { PopupComponent } from './components/common/popup/popup.component';
 declare var $: any;
 @NgModule({
   declarations: [
@@ -25,23 +30,25 @@ declare var $: any;
     HeaderComponent,
     FooterComponent,
     ProductsComponent,
-    AdvancedComponent,
     MainComponent,
     OrderComponent,
-    OrderFinishComponent,
+    // OrderFinishComponent,
     ProductCardComponent,
     ShorterPipePipe,
     ProductComponent,
-    PopupComponent
+    FindNamePipe,
+    FindNameDirective/*,
+    PopupComponent*/
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgwWowModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
-  providers: [ ProductService],
+  providers: [ ProductService, OrderService, ModalService, FinderService],
   bootstrap: [AppComponent, HeaderComponent, FooterComponent]
 })
 export class AppModule { }

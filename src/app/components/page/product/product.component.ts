@@ -23,6 +23,9 @@ export class ProductComponent implements OnInit {
   }
 
   private subscription: Subscription | null = null;
+  private subscriptionFind: Subscription | null = null;
+  private findStr: HTMLElement| null = null;
+
   ngOnInit(): void {
     this.subscription = this.activatedRoute.params.subscribe((params) => {
       if (params['id']) {
@@ -30,17 +33,22 @@ export class ProductComponent implements OnInit {
           .subscribe({
             next: (data) => {
               this.product = data;
+              console.log(data)
             },
             error: (error) => {
               this.router.navigate(['/'])
             }
           });
       }
+
     });
+
+
   }
   ngOnDestroy() {
     this.subscription?.unsubscribe();
-    console.log('unsubscript: product')
+    console.log('unsubscript: product');
+
   }
 
 }
