@@ -1,9 +1,10 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import { NgForm} from "@angular/forms";
-import { FormsModule }   from '@angular/forms';
+import {NgForm} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 import {ProductService} from "../../../services/product.service";
 import {Router} from "@angular/router";
 import {FinderService} from "../../../services/finder.service";
+
 @Component({
   selector: 'header-component',
   templateUrl: './header.component.html',
@@ -11,27 +12,25 @@ import {FinderService} from "../../../services/finder.service";
 })
 export class HeaderComponent implements OnInit {
   private findStr: HTMLElement | null = null;
-  constructor( private productService: ProductService, private router : Router,public finderService: FinderService) { }
+
+  constructor(private productService: ProductService, private router: Router, public finderService: FinderService) {
+  }
 
   ngOnInit(): void {
     this.findStr = document.getElementById('findStr');
   }
 
-
-   inputStr: string | null = '';
-
-
-
   filterResults(text: string) {
     if (!text) {
-   //   this.filteredLocationList = this.housingLocationList;
+      //   this.filteredLocationList = this.housingLocationList;
     }
-    console.log('!!!'+text);
-  //  this.filteredLocationList = this.housingLocationList.filter(
-  //    housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
-  //  );
+    console.log('!!!' + text);
+    //  this.filteredLocationList = this.housingLocationList.filter(
+    //    housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
+    //  );
   }
-  find(){
+
+  find() {
     this.finderService.find1();
   }
 

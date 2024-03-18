@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProductService} from "../../../services/product.service";
 import {ProductType} from "../../../types/product.type";
-import {Subscription, catchError, map, of, retry, tap} from 'rxjs';
+import {Subscription, catchError, map, of, retry, tap, Subject, takeUntil} from 'rxjs';
 import {FinderService} from "../../../services/finder.service";
 
 @Component({
@@ -11,11 +11,11 @@ import {FinderService} from "../../../services/finder.service";
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit , OnDestroy{
   @Input() product: ProductType;
-
+  private destroy$ = new Subject<undefined>();
   constructor(private productService: ProductService,public finderService: FinderService,
-              private http: HttpClient, private router: Router) {
+              private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     this.product = {
       id: 0,
       image: '',
@@ -40,11 +40,7 @@ export class ProductsComponent implements OnInit {
     this.getRouteData();
   }
 
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
-    this.subscription1?.unsubscribe();
-    console.log('unsubscribe: products')
-  }
+
 
   ngOnChanges() {
     // this.router.navigate(['/products']);
@@ -71,7 +67,8 @@ export class ProductsComponent implements OnInit {
         .pipe(
           tap(() => {
             this.loading = false;
-          })
+          }),
+     takeUntil(this.destroy$)
         )
         .subscribe(
           {
@@ -91,7 +88,8 @@ export class ProductsComponent implements OnInit {
         .pipe(
           tap(() => {
             this.loading = false;
-          })
+          }),
+          takeUntil(this.destroy$)
         )
         .subscribe(
           {
@@ -110,4 +108,12 @@ export class ProductsComponent implements OnInit {
           })
     )
   }
+  public ngOnDestroy(): void {
+    // this.destroy$.next();
+    this.destroy$.complete();
+    this.subscription?.unsubscribe();
+    this.subscription1?.unsubscribe();
+    console.log('unsubscribe: products')
+  }
+
 }
