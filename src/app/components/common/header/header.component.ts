@@ -11,25 +11,16 @@ import {FinderService} from "../../../services/finder.service";
 })
 export class HeaderComponent implements OnInit {
   private findStr: HTMLElement | null = null;
-  constructor( private productService: ProductService, private router : Router) { }
+  constructor( private productService: ProductService, private router : Router,public finderService: FinderService) { }
 
   ngOnInit(): void {
     this.findStr = document.getElementById('findStr');
   }
-  clearFinder(){
-    this.findStr = document.getElementById('textInput');
-    console.log('header');
-  }
-  goFinder(){
-    console.log('goFinder');
-    this.router.navigate(['/products']);
-  }
+
+
    inputStr: string | null = '';
 
-  searchFinder(){
-    this.inputStr=(document.getElementById('findStr') as HTMLInputElement).value;
-   console.log(this.inputStr);
-  }
+
 
   filterResults(text: string) {
     if (!text) {
@@ -39,6 +30,9 @@ export class HeaderComponent implements OnInit {
   //  this.filteredLocationList = this.housingLocationList.filter(
   //    housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
   //  );
+  }
+  find(){
+    this.finderService.find1();
   }
 
 }

@@ -33,27 +33,7 @@ export class FinderService {
   public search: string | null = '';
   private subscription1: Subscription | null = null;
 
-  getStr() {
-    this.isFound = (document.getElementById('findStr') as HTMLInputElement).value;
-    this.isFound$.next(this.isFound);
-  }
-  searchFinder(){
-    this.inputStr=(document.getElementById('findStr') as HTMLInputElement).value;
-    console.log(this.inputStr);
-  }
-  clearStr() {
-    this.isFound ='';
-    this.isFound$.next(this.isFound);
-  }
-  isLoggedIn(): string {
-    return this.isFound;
-  }
-  clearFinder(){
-    console.log('clearFinder');
-    this.router.navigate(['/products']);
-  }
-  public getRouteData() {
-
+  find1(){
     this.findStr = document.getElementById('findStr');
     this.loading = true;
 
@@ -63,25 +43,6 @@ export class FinderService {
       this.subscription = this.productService.getProductFind(this.inputStr)
         .pipe(
           tap(() => {
-           // this.loading = false;
-          })
-        )
-        .subscribe(
-          {
-            next: (data) => {
-              console.log(data);
-              console.log('subscribe getProductFind');
-              this.products = Object.values(data);
-            },
-            error: (error) => {
-              console.log(error);
-              this.router.navigate(['/']);
-            }
-          })
-    } else (
-      this.subscription1 = this.productService.getProducts()
-        .pipe(
-          tap(() => {
             this.loading = false;
           })
         )
@@ -89,16 +50,14 @@ export class FinderService {
           {
             next: (data) => {
               console.log(data);
-              this.products = data;
-              this.products =  Object.values(data);
-              this.router.navigate(['/products']);
-              console.log('subscribe getProduct');
+              console.log('subscribe getProductFind- finderService');
+              this.products = Object.values(data);
             },
             error: (error) => {
               console.log(error);
               this.router.navigate(['/']);
             }
           })
-    )
+    }
   }
 }

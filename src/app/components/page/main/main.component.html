@@ -159,7 +159,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">{{modalService.modalText}}</h5>
-        <button type="button" class="btn-close"  (click)='modalService.hideModalAll("modal",false)'></button>
         <button type="button" class="btn-close" (click)='modalService.hideModalAll("modal",true)'></button>
 <!--        <button type="button" class="btn-close"  (click)='hideModal()'></button>-->
       </div>
@@ -167,7 +166,7 @@
         <p>Посмотрите наши чайные коллекции</p>
       </div>-->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)='modalService.hideModalAll("modal",true)'>Close</button>
+        <button type="button" class="btn btn-outline-secondary" type="reset" (click)='modalService.hideModalAll("modal",true)'>Close</button>
 <!--        <button type="button" class="btn btn-secondary" (click)='hideModal()'>Close</button>-->
         <button type="button" class="btn btn-primary" routerLink="/products">Смотреть</button>
       </div>

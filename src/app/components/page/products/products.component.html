@@ -1,13 +1,13 @@
 <section class="cards" id="products">
   <div class="container">
     <div class="row py-lg-4">
-      <h1 class="fw-bold fs-2 text-center ">Наши чайные коллекции</h1>
+      <h1 class="fw-bold fs-2 text-center " id = 'title-page'>{{titlePage}}</h1>
     </div>
     <div class="album py-4 row  row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
 <!--      <input class="form-control me-2" type="search" placeholder="Поиск чая" aria-label="Search" id="findStr" value="123" name="text" >-->
 <!--      Поиск с pipe  (find-name.pipe.ts), для использования добавить  | findName-->
-<!--      <product-card *ngFor="let product of products | findName" [product]="product"></product-card>-->
-      <product-card *ngFor="let product of products" [product]="product"></product-card>
+      <product-card *ngFor="let product of products | findName" [product]="product"></product-card>
+<!--      <product-card *ngFor="let product of products" [product]="product"></product-card>-->
       <!--<div class="col d-flex justify-content-center">
         &lt;!&ndash;          //////////&ndash;&gt;
         <div class="card" style="width: 26rem;">

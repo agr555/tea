@@ -33,6 +33,7 @@ export class ProductsComponent implements OnInit {
   public search: string | null = '';
   private subscription1: Subscription | null = null;
   inputStr: string | null = '';
+  titlePage: string | null = '';
 
   ngOnInit(): void {
     // this.finderService.getRouteData();
@@ -46,7 +47,9 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.router.navigate(['/products']);
+    // this.router.navigate(['/products']);
+    this.getRouteData();
+    console.log(' ngOnChanges');
   }
 
 
@@ -59,8 +62,11 @@ export class ProductsComponent implements OnInit {
     this.loading = true;
 
     this.inputStr = (document.getElementById('findStr') as HTMLInputElement).value;
+    if(this.inputStr) {
+      this.titlePage =  'Результаты поиска по запросу:  '+ this.inputStr
+    } else this.titlePage =  'Наши чайные коллекции';
     console.log(this.inputStr);
-    if (this.inputStr && (this.inputStr != '') && (this.inputStr !== null)) {
+   if (this.inputStr && (this.inputStr != '') && (this.inputStr !== null)) {
       this.subscription = this.productService.getProductFind(this.inputStr)
         .pipe(
           tap(() => {
@@ -71,7 +77,8 @@ export class ProductsComponent implements OnInit {
           {
             next: (data) => {
               console.log(data);
-              console.log('subscribe getProductFind');
+              console.log('subscribe getProductFind!!');
+              this.subscription1?.unsubscribe();
               this.products = Object.values(data);
             },
             error: (error) => {
@@ -90,9 +97,11 @@ export class ProductsComponent implements OnInit {
           {
             next: (data) => {
               console.log(data);
+              this.subscription?.unsubscribe();
+
               this.products = data;
               this.router.navigate(['/products']);
-              console.log('subscribe getProduct');
+              console.log('subscribe getProduct!');
             },
             error: (error) => {
               console.log(error);

@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: MainComponent},
   { path: 'products', component: ProductsComponent},
   { path: 'products/:id', component: ProductComponent},
-  { path: 'products/search=:', component: ProductsComponent},
+  // { path: 'products/search=', component: ProductsComponent},
   { path: 'order', component: OrderComponent},// canActivate: [AuthGuard]},
   // { path: 'order-finish', component: OrderFinishComponent},// canActivate: [AuthGuard]},
   // { path: 'popup', component: PopupComponent},// canActivate: [AuthGuard]},

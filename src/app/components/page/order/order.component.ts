@@ -49,6 +49,7 @@ export class OrderComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute, private productService: ProductService,
               private orderService: OrderService,public modalService: ModalService,
               private router: Router) {
+
     this.modalObservable = new Observable((obs ) => {
       setTimeout(() => {
         obs.next();
