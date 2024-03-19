@@ -11,10 +11,11 @@ import {FinderService} from "../../../services/finder.service";
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit , OnDestroy{
+export class ProductsComponent implements OnInit, OnDestroy {
   @Input() product: ProductType;
   private destroy$ = new Subject<undefined>();
-  constructor(private productService: ProductService,public finderService: FinderService,
+
+  constructor(private productService: ProductService, public finderService: FinderService,
               private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     this.product = {
       id: 0,
@@ -35,12 +36,13 @@ export class ProductsComponent implements OnInit , OnDestroy{
   inputStr: string | null = '';
   titlePage: string | null = '';
 
-  ngOnInit(): void {
-    // this.finderService.getRouteData();
+
+  ngOnInit(): void{
     this.getRouteData();
+    this.productService.products.subscribe((data: ProductType[]):void => {
+      this.products = data;
+    })
   }
-
-
 
   ngOnChanges() {
     // this.router.navigate(['/products']);
@@ -50,64 +52,28 @@ export class ProductsComponent implements OnInit , OnDestroy{
 
 
   update() {
-  //  this.getRouteData();
+    //  this.getRouteData();
   }
 
-  getRouteData() {
+  async getRouteData() {
     this.findStr = document.getElementById('findStr');
     this.loading = true;
 
     this.inputStr = (document.getElementById('findStr') as HTMLInputElement).value;
-    if(this.inputStr) {
-      this.titlePage =  'Результаты поиска по запросу:  '+ this.inputStr
-    } else this.titlePage =  'Наши чайные коллекции';
+    if (this.inputStr) {
+      console.log(this.inputStr);
+      this.titlePage = 'Результаты поиска по запросу:  ' + this.inputStr;
+    } else this.titlePage = 'Наши чайные коллекции';
     console.log(this.inputStr);
-   if (this.inputStr && (this.inputStr != '') && (this.inputStr !== null)) {
-      this.subscription = this.productService.getProductFind(this.inputStr)
-        .pipe(
-          tap(() => {
-            this.loading = false;
-          }),
-     takeUntil(this.destroy$)
-        )
-        .subscribe(
-          {
-            next: (data) => {
-              console.log(data);
-              console.log('subscribe getProductFind!!');
-              this.subscription1?.unsubscribe();
-              this.products = Object.values(data);
-            },
-            error: (error) => {
-              console.log(error);
-              this.router.navigate(['/']);
-            }
-          })
-    } else (
-      this.subscription1 = this.productService.getProducts()
-        .pipe(
-          tap(() => {
-            this.loading = false;
-          }),
-          takeUntil(this.destroy$)
-        )
-        .subscribe(
-          {
-            next: (data) => {
-              console.log(data);
-              this.subscription?.unsubscribe();
-
-              this.products = data;
-              this.router.navigate(['/products']);
-              console.log('subscribe getProduct!');
-            },
-            error: (error) => {
-              console.log(error);
-              this.router.navigate(['/']);
-            }
-          })
-    )
+    if (this.inputStr && (this.inputStr != '') && (this.inputStr !== null)) {
+      await this.productService.getProducts(this.inputStr);
+    } else {
+      await this.productService.getProducts();
+    }
+    this.loading = false;
   }
+
+
   public ngOnDestroy(): void {
     // this.destroy$.next();
     this.destroy$.complete();

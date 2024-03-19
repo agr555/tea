@@ -10,8 +10,9 @@ import {ProductType} from "../types/product.type";
 }*/)
 export class FinderService {
   @Input() product: ProductType;
-  constructor( private http: HttpClient, private router: Router,public productService: ProductService,
-      ) {
+
+  constructor(private http: HttpClient, private router: Router, public productService: ProductService,
+  ) {
     this.product = {
       id: 0,
       image: '',
@@ -23,7 +24,6 @@ export class FinderService {
 
   private isFound = '';
   public isFound$: Subject<string> = new Subject<string>();
-  inputStr: string | null = '';
 
 
   public products: ProductType[] = [];
@@ -33,31 +33,12 @@ export class FinderService {
   public search: string | null = '';
   private subscription1: Subscription | null = null;
 
-  find1(){
-    this.findStr = document.getElementById('findStr');
+  find1(findStr: string) {
     this.loading = true;
+    // this.inputStr = (document.getElementById('findStr') as HTMLInputElement).value;
+    if (findStr && (findStr != '') && (findStr !== null)) {
+      this.productService.getProducts(findStr)
 
-    this.inputStr = (document.getElementById('findStr') as HTMLInputElement).value;
-    console.log(this.inputStr);
-    if (this.inputStr && (this.inputStr != '') && (this.inputStr !== null)) {
-      this.subscription = this.productService.getProductFind(this.inputStr)
-        .pipe(
-          tap(() => {
-            this.loading = false;
-          })
-        )
-        .subscribe(
-          {
-            next: (data) => {
-              console.log(data);
-              console.log('subscribe getProductFind- finderService');
-              this.products = Object.values(data);
-            },
-            error: (error) => {
-              console.log(error);
-              this.router.navigate(['/']);
-            }
-          })
     }
   }
 }

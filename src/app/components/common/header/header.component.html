@@ -18,13 +18,13 @@
             <a [routerLink]="'/products'" class="nav-link text-opacity-60 " >Каталог</a>
           </li>
         </ul>
-        <form class="d-flex" role="search" >
-          <input class="form-control me-2" type="search" placeholder="Поиск чая" aria-label="Search" id="findStr" #filter >
+        <div class="d-flex" role="search" >
+          <input class="form-control me-2" type="search" placeholder="Поиск чая" aria-label="Search" id="findStr" #filter [(ngModel)]="findStr">
           <button class="btn btn-primary px-4 hvr-buzz" [routerLink]="['/products']" type="button"  (click)="find()">Найти</button>
 <!--          <button class="btn btn-outline-secondary px-4 hvr-buzz" type="reset" [routerLink]="['/products']" (click)="clearFinder()">Отменить</button>-->
-          <button class="btn btn-outline-secondary px-4 hvr-buzz" type="reset" [routerLink]="['/']">Отменить</button>
+          <button class="btn btn-outline-secondary px-4 ms-2 " type="button" [routerLink]="['/products']"(click)="cancel()">Отменить</button>
 <!--          (click)='modalService.hideModalAll("modal",true)'-->
-        </form>
+        </div>
       </div>
     </div>
   </nav>
