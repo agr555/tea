@@ -40,22 +40,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void{
     this.getRouteData();
-    this.productService.products.subscribe((data: ProductType[]):void => {
+    this.subscription = this.productService.products.subscribe((data: ProductType[]):void => {
       this.products = data;
     })
+/*    this.productService.loading.subscribe( data => {
+      this.loading = data;
+    })*/
   }
-
-/*  ngOnChanges() {
-    // this.router.navigate(['/products']);
-    this.getRouteData();
-    console.log(' ngOnChanges');
-  }*/
-
-
 
   async getRouteData():  Promise<void> {
     this.findStr = document.getElementById('findStr');
-    this.loading = true;
+    this.subscription1 = this.productService.loading.subscribe( data => {
+      this.loading = data;
+    })
     this.inputStr = (document.getElementById('findStr') as HTMLInputElement).value;
     if (this.inputStr && this.inputStr.length>0) {
       this.titlePage = 'Результаты поиска по запросу:  ' + this.inputStr;
@@ -63,10 +60,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
     if (this.inputStr && (this.inputStr != '') && (this.inputStr !== null)) {
       await this.productService.getProducts(this.inputStr);
-     this.loading = false;
     } else {
       await this.productService.getProducts();
-      this.loading = false;
     }
   }
 
