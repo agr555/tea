@@ -5,6 +5,7 @@ import {ProductService} from "../../../services/product.service";
 import {Router} from "@angular/router";
 import {FinderService} from "../../../services/finder.service";
 import {Subject} from "rxjs";
+
 // public findStr: Subject<string> = new Subject<string>();
 
 
@@ -15,10 +16,11 @@ import {Subject} from "rxjs";
 })
 
 export class HeaderComponent implements OnInit {
-   findStr: string = '';
+  findStr: string = '';
   // public findStr: Subject<string> = new Subject<string>();
   inputStr: string | null = '';
   inputStr1: HTMLInputElement | null = null;
+
   constructor(private productService: ProductService, private router: Router, public finderService: FinderService) {
   }
 
@@ -26,17 +28,18 @@ export class HeaderComponent implements OnInit {
   }
 
   find() {
+    this.productService.setTitle('Результаты поиска по запросу:  ' + this.findStr);
     this.finderService.find1(this.findStr);
-    console.log(this.findStr)
-  }
-  cancel() {
-    // this.finderService.find1('');
-    this.inputStr1 = (document.getElementById('findStr') as HTMLInputElement)//.value;
-    //console.log((document.getElementById('findStr') as HTMLInputElement).value);
-    this.inputStr1.value = '';
-    this.findStr='';
-      // console.log(this.inputStr1);
-      this.productService.getProducts();
-    }
 
+  }
+
+  cancel() {
+    this.productService.setTitle('Наши чайные коллекции');
+    this.inputStr1 = (document.getElementById('findStr') as HTMLInputElement)//.value;
+    if(this.inputStr1 && this.inputStr1.value!=='' && this.inputStr1.value!== null){
+      this.inputStr1.value = '';
+      this.findStr = '';
+     this.productService.getProducts();
+    }
+  }
 }

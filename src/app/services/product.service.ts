@@ -9,6 +9,16 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 }*/)
 export class ProductService {
+  private findStr: HTMLElement | null = null;
+  public search: string | null = '';
+  inputStr: string | null = '';
+  titlePage: string | null = '';
+  titleStr: HTMLElement | null = null;
+
+  loading: boolean = false; //true;
+
+
+
 
   constructor(private http: HttpClient, private router: Router) {
     this.product = {
@@ -22,30 +32,42 @@ export class ProductService {
   }
   products: Subject <ProductType[]>  = new Subject<ProductType[]>();
   product: ProductType;
-
-  getProducts(findStr?: string): void {
+  getProducts(findStr?: string):void {
     const url= 'https://testologia.site/tea';
     const subscription = this.http.get<ProductType[]>(findStr? `${url}?search=${findStr}`:url);
-    console.log(subscription);
+
     subscription.subscribe(
       {
         next: (data) => {
-          console.log(data);
+           this.loading = true;
           // this.products.next(data);// = Object.values(data);
           this.products.next( Object.values(data));
+          console.log( Object.values(data));
+          if ( ( Object.values(data)).length===0){
+            this.setTitle(' Ничего не найдено! ');
+          }
+          this.loading = false;
+
         },
         error: (error) => {
           console.log(error);
           this.router.navigate(['/']);
+          return -1;
         }
       })
   }
+
 
   getProduct(id: number): Observable<ProductType> {
     console.log(this.http.get<ProductType>(`https://testologia.site/tea?id=${id}`));
     return this.http.get<ProductType>(`https://testologia.site/tea?id=${id}`);
   }
-
+  setTitle(title: string){
+    console.log(title)
+   this.titleStr = (document.getElementById('title-page'));
+    console.log( this.titleStr );
+    if(this.titleStr)     this.titleStr.innerHTML = title;
+  }
 /*  inputStr: string | null = '';
   private subscription: Subscription | null = null;*/
 

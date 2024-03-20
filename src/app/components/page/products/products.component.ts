@@ -28,9 +28,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   public products: ProductType[] = [];
-  loading: boolean = false; //true;
+  loading: boolean = false;
   private subscription: Subscription | null = null;
   private findStr: HTMLElement | null = null;
+  inputStr1: HTMLInputElement | null = null;
   public search: string | null = '';
   private subscription1: Subscription | null = null;
   inputStr: string | null = '';
@@ -44,35 +45,30 @@ export class ProductsComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnChanges() {
+/*  ngOnChanges() {
     // this.router.navigate(['/products']);
     this.getRouteData();
     console.log(' ngOnChanges');
-  }
+  }*/
 
 
-  update() {
-    //  this.getRouteData();
-  }
 
-  async getRouteData() {
+  async getRouteData():  Promise<void> {
     this.findStr = document.getElementById('findStr');
     this.loading = true;
-
     this.inputStr = (document.getElementById('findStr') as HTMLInputElement).value;
-    if (this.inputStr) {
-      console.log(this.inputStr);
+    if (this.inputStr && this.inputStr.length>0) {
       this.titlePage = 'Результаты поиска по запросу:  ' + this.inputStr;
     } else this.titlePage = 'Наши чайные коллекции';
-    console.log(this.inputStr);
+
     if (this.inputStr && (this.inputStr != '') && (this.inputStr !== null)) {
       await this.productService.getProducts(this.inputStr);
+     this.loading = false;
     } else {
       await this.productService.getProducts();
+      this.loading = false;
     }
-    this.loading = false;
   }
-
 
   public ngOnDestroy(): void {
     // this.destroy$.next();

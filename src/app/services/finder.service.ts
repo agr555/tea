@@ -27,18 +27,14 @@ export class FinderService {
 
 
   public products: ProductType[] = [];
-  loading: boolean = false; //true;
-  private subscription: Subscription | null = null;
-  private findStr: HTMLElement | null = null;
+ // loading: boolean = false; //true;
   public search: string | null = '';
-  private subscription1: Subscription | null = null;
 
   find1(findStr: string) {
-    this.loading = true;
+ //   this.loading = true;
     // this.inputStr = (document.getElementById('findStr') as HTMLInputElement).value;
     if (findStr && (findStr != '') && (findStr !== null)) {
-      this.productService.getProducts(findStr)
-
+      const count = this.productService.getProducts(findStr);
     }
   }
 }
