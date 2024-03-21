@@ -17,11 +17,10 @@ import {Subject} from "rxjs";
 
 export class HeaderComponent implements OnInit {
   findStr: string = '';
-  public findS: Subject<string> = new Subject<string>();
   public userActivated: Subject<string> = new Subject<string>();
 
-  inputStr: string | null = '';
   inputStr1: HTMLInputElement | null = null;
+
   constructor(private productService: ProductService, private router: Router, public finderService: FinderService) {
 
   }
@@ -41,7 +40,7 @@ export class HeaderComponent implements OnInit {
   cancel() {
     //this.productService.setTitle('Наши чайные коллекции');
     this.inputStr1 = (document.getElementById('findStr') as HTMLInputElement)//.value;
-    if(this.inputStr1 && this.inputStr1.value!=='' && this.inputStr1.value!== null){
+    if (this.inputStr1 && this.inputStr1.value !== '' && this.inputStr1.value !== null) {
       this.inputStr1.value = '';
       // this.findStr = '';
     }

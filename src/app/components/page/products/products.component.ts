@@ -14,8 +14,6 @@ import {FinderService} from "../../../services/finder.service";
 export class ProductsComponent implements OnInit, OnDestroy {
   @Input() product: ProductType;
   private destroy$ = new Subject<undefined>();
-  nav1ElementActived = false;
-  nav2ElementActived = false;
   titleStr: HTMLElement | null = null;
 
   constructor(private productService: ProductService, public finderService: FinderService,
@@ -64,7 +62,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.loading = data;
     })
     this.subscrActivate = this.productService.userActivated.subscribe((str) => {
-      //number не проходит((
       if ((str) && (str !== '') && (str !== null)) {
         this.titlePage = 'Результаты поиска по запросу:  ' + str;
         console.log('нажат поиск и установлено Результаты поиска по запросу(поиск):  ' + str);
