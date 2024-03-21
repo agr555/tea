@@ -17,29 +17,35 @@ import {Subject} from "rxjs";
 
 export class HeaderComponent implements OnInit {
   findStr: string = '';
-  // public findStr: Subject<string> = new Subject<string>();
+  public findS: Subject<string> = new Subject<string>();
+  public userActivated: Subject<string> = new Subject<string>();
+
   inputStr: string | null = '';
   inputStr1: HTMLInputElement | null = null;
-
   constructor(private productService: ProductService, private router: Router, public finderService: FinderService) {
+
   }
 
   ngOnInit(): void {
+
   }
 
   find() {
-    this.productService.setTitle('Результаты поиска по запросу:  ' + this.findStr);
+    //this.productService.setTitle('Результаты поиска по запросу:  ' + this.findStr);
     this.finderService.find1(this.findStr);
+    // this.item.next(true);
+    this.productService.userActivated.next(this.findStr);
 
   }
 
   cancel() {
-    this.productService.setTitle('Наши чайные коллекции');
+    //this.productService.setTitle('Наши чайные коллекции');
     this.inputStr1 = (document.getElementById('findStr') as HTMLInputElement)//.value;
     if(this.inputStr1 && this.inputStr1.value!=='' && this.inputStr1.value!== null){
       this.inputStr1.value = '';
-      this.findStr = '';
-     this.productService.getProducts();
+      // this.findStr = '';
     }
+    this.productService.userDeactivated.next(true);
+    this.productService.getProducts();
   }
 }

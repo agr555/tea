@@ -16,7 +16,8 @@ export class ProductService {
   // loading: boolean = false; //true;
   loading: Subject<boolean> = new Subject();
 
-
+  userActivated = new Subject<string>() ;
+  userDeactivated = new Subject<boolean>();
 
 
   constructor(private http: HttpClient, private router: Router) {
@@ -39,7 +40,6 @@ export class ProductService {
     const url= 'https://testologia.site/tea';
     const subscription = this.http.get<ProductType[]>(findStr? `${url}?search=${findStr}`:url);
     this.loading.next( true);
-    console.log('!!!');
     subscription.subscribe(
       {
         next: (data) => {

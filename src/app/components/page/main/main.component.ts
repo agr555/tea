@@ -24,9 +24,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.modal = document.getElementById('modal');
     this.modalSubscription = this.modalObservable.subscribe((): void => {
       this.modalService.showModalAll(this.modal, 'Посмотрите наши чайные коллекции!');
-      $("#accordion").accordion();
-
-
+      // $("#accordion").accordion();
     })
   }
 
