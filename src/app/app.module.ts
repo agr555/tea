@@ -19,6 +19,7 @@ import {ModalService} from "./services/modal.service";
 import { FindNamePipe } from './pipes/find-name.pipe';
 import { FindNameDirective } from './directives/find-name.directive';
 import {FinderService} from "./services/finder.service";
+import {NgbCollapseModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 declare var $: any;
 @NgModule({
   declarations: [
@@ -40,8 +41,11 @@ declare var $: any;
     NgwWowModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
+    NgbCollapseModule
   ],
+
   providers: [ ProductService, OrderService, ModalService, FinderService],
   bootstrap: [AppComponent, HeaderComponent, FooterComponent]
 })

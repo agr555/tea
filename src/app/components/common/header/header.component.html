@@ -1,29 +1,36 @@
 <header class="header row pb-4 ">
-  <nav class="navbar navbar-expand-sm bg-body-tertiary p-2">
-    <div class="container-fluid">
-      <a class="navbar-brand animate__animated animate__swing ms-3" href="#">
+  <nav class="navbar navbar-expand-sm bg-body-tertiary p-2 ">
+    <div class="container-fluid justify-content-sm-start ">
+      <div class="navbar-brand animate__animated animate__swing ms-3" >
         <img src="assets/images/Logo.png" alt="Logo">
-      </a>
+      </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              (click)="collapse.toggle()"
+              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"
               aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!--      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"-->
+<!--      class="d-flex flex-row justify-content-between-->
+      <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="d-sm-flex  w-100 flex-row justify-content-between" >
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
           <li class="nav-item">
-            <a [routerLink]="''" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link active" aria-current="page" >Главная</a>
+            <a [routerLink]="''" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+               class="nav-link active" aria-current="page">Главная</a>
           </li>
           <li class="nav-item ">
-            <a [routerLink]="'/products'" class="nav-link text-opacity-60 " >Каталог</a>
+            <a [routerLink]="'/products'" class="nav-link text-opacity-60 ">Каталог</a>
           </li>
         </ul>
-        <div class="d-flex" role="search" >
-          <input class="form-control me-2" type="search" placeholder="Поиск чая" aria-label="Search" id="findStr" #filter [(ngModel)]="findStr">
-          <button class="btn btn-primary px-4 hvr-buzz" [routerLink]="['/products']" type="button"  (click)="find()">Найти</button>
-<!--          <button class="btn btn-outline-secondary px-4 hvr-buzz" type="reset" [routerLink]="['/products']" (click)="clearFinder()">Отменить</button>-->
-          <button class="btn btn-outline-secondary px-4 ms-2 " type="button"(click)="cancel()">Отменить</button>
-<!--          (click)='modalService.hideModalAll("modal",true)'-->
+        <div class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Поиск чая" aria-label="Search" id="findStr"
+                 #filter [(ngModel)]="findStr">
+          <button class="btn btn-primary px-4 hvr-buzz" [routerLink]="['/products']" type="button" (click)="find()">
+            Найти
+          </button>
+          <!--          <button class="btn btn-outline-secondary px-4 hvr-buzz" type="reset" [routerLink]="['/products']" (click)="clearFinder()">Отменить</button>-->
+          <button class="btn btn-outline-secondary px-4 ms-2 " type="button" (click)="cancel()">Отменить</button>
+          <!--          (click)='modalService.hideModalAll("modal",true)'-->
         </div>
       </div>
     </div>
