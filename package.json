@@ -23,6 +23,7 @@
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
+    "ng-bootstrap-form-validation": "^9.0.1",
     "ngx-wow": "^2.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

@@ -1,0 +1,27 @@
+<section class="product">
+  <div class="container position-relative">
+    <div class="products-title-block d-flex justify-content-between px-5">
+      <div class="">
+        <h2 class="products-title" id="products-title">{{product.title}}</h2>
+        <h2 class="products-price" id="products-price">{{product.price | currency : 'RUB': 'symbol' : '1.0-0' }}</h2>
+      </div>
+
+      <div class="product-action " #elem>
+        <button class="btn btn-add-to-cart btn-primary" routerLink="/order" [queryParams]="{product: product.title}">В
+          корзину
+        </button>
+<!--        <button class="btn"  (click)="ProductService.testPopup(popupOrder)">Тест popup</button>-->
+<!--        <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>-->
+      </div>
+    </div>
+
+    <div class="product-item  p-5  " >
+      <div class="product-text">{{product.description }}</div>
+      <div class="product-image">
+        <img src="{{product.image}}" class="w-100" >
+      </div>
+
+    </div>
+
+  </div>
+</section>

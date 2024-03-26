@@ -1,0 +1,155 @@
+<ng-template #popup let-modalOrder>
+<!--  <app-popup-full [data]="'Спасибо за заказ!'"></app-popup-full>-->
+  <!--<ng-template #content let-modal>-->
+  <section class="order bg-body-tertiary">
+    <div class="container">
+      <div class="modal-dialog modal-md  text-black" #popupOrder style="max-width: 650px">
+
+        <div class="modal-content ">
+
+          <div class="modal-header fw-bold fs-2 justify-content-center py-4 px-xl-5 ">
+            <div class="text-header w-100 d-flex justify-content-center">Сделать заказ</div>
+            <button type="button" class=" btn-close fs-4 " aria-label="Close" [routerLink]="['/products']" (click)="modalOrder.dismiss('')"></button>
+          </div>
+
+          <div class="modal-body p-3">
+            <form class="row g-4 needs-validation  p-2  justify-content-between" id="formOrder"
+                  novalidate [formGroup]="checkoutForm" #siForm="ngForm">
+              <div class="col-md-12 ">
+                <label for="validationCustom01" class="form-label ">Товар</label>
+                <input type="text" class="form-control  p-1" id="validationCustom01"
+                       value="{{formValues.productTitle}}" disabled>
+              </div>
+              <div class="col-md-4 ">
+                <label for="name" class="form-label ">Имя</label>
+                <input type="text" class="form-control  p-1" id="name"
+                       [(ngModel)]="formValues.name" formControlName="name">
+                <div class="invalid-feedback" *ngIf="checkoutForm.get('name')?.invalid
+                && (checkoutForm.get('name')?.touched || checkoutForm.get('name')?.dirty)
+                && checkoutForm.get('name')?.errors?.['required']">
+                  Введите имя.
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="checkoutForm.get('name')?.errors?.['pattern']">
+                  Имя должно содержать только буквы.
+                </div>
+              </div>
+
+              <div class="col-md-4 ">
+                <label for="validationCustom03" class="form-label ">Фамилия</label>
+                <input type="text" class="form-control  p-1 " id="validationCustom03" required
+                       [(ngModel)]="formValues.last_name" formControlName="last_name">
+                <div class="invalid-feedback" *ngIf="checkoutForm.get('last_name')?.invalid
+                && (checkoutForm.get('last_name')?.touched || checkoutForm.get('last_name')?.dirty)
+                && checkoutForm.get('last_name')?.errors?.['required']">
+                  Введите фамилию.
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="checkoutForm.get('last_name')?.errors?.['pattern']">
+                  Фамилия должна содержать только буквы.
+                </div>
+              </div>
+
+              <div class="col-md-4  ">
+                <label for="validationCustom04" class="form-label ">Телефон</label>
+                <input type="text" class="form-control  p-1 " id="validationCustom04"
+                       [(ngModel)]="formValues.phone" formControlName="phone">
+                <div class="invalid-feedback" *ngIf="checkoutForm.get('phone')?.invalid
+                && (checkoutForm.get('phone')?.touched || checkoutForm.get('phone')?.dirty)
+                && checkoutForm.get('phone')?.errors?.['required']">
+                  Введите телефон.
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="checkoutForm.get('phone')?.errors?.['pattern']">
+                  Введите телефон в формате +ХХХХХХХХХХХ
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="validationCustom05" class="form-label ">Страна</label>
+                <input type="text" class="form-control  p-1 " id="validationCustom05"
+                       [(ngModel)]="formValues.country" formControlName="country">
+                <div class="invalid-feedback" *ngIf="checkoutForm.get('country')?.invalid
+                && (checkoutForm.get('country')?.touched || checkoutForm.get('country')?.dirty)
+                && checkoutForm.get('country')?.errors?.['required']">
+                  Укажите страну.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="validationCustom06" class="form-label ">Индекс</label>
+                <input type="text" class="form-control  p-1 " id="validationCustom06"
+                       [(ngModel)]="formValues.zip" formControlName="zip">
+                <div class="invalid-feedback" *ngIf="checkoutForm.get('zip')?.invalid
+                && (checkoutForm.get('zip')?.touched || checkoutForm.get('zip')?.dirty)
+                && checkoutForm.get('zip')?.errors?.['required']">
+                  Введите индекс.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="validationCustom07" class="form-label ">Адрес</label>
+                <input type="text" class="form-control  p-1 " id="validationCustom07"
+                       [(ngModel)]="formValues.address" formControlName="address">
+
+                <div class="w-100 invalid-feedback" *ngIf="checkoutForm.get('address')?.invalid
+                && (checkoutForm.get('address')?.touched || checkoutForm.get('address')?.dirty)
+                && checkoutForm.get('address')?.errors?.['required']">
+                  Введите адрес.
+                </div>
+
+                <div class="invalid-feedback"
+                     *ngIf="checkoutForm.get('address')?.errors?.['pattern']">
+                  Адрес может содержать только буквы, цифры, пробел, слеш и дефис.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="validationCustom08" class="form-label ">Комментарий к заказу</label>
+                <input type="text" class="form-control  p-1 " id="validationCustom08"
+                       [(ngModel)]="formValues.comment" formControlName="comment">
+              </div>
+              <div class="col  justify-content-between">
+                <button class="btn btn-primary py-2 px-4 border rounded-1" [disabled]="siForm.invalid"
+                        (click)="createOrder()">Купить
+                </button>
+
+                <div class="errorOrder text-danger mt-2" id="errorOrder">Произошла ошибка. Попробуйте еще раз.</div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+<!--<ng-template #popupInfo let-modalInfo>
+    &lt;!&ndash;<div class="modal" id="myModalFull">&ndash;&gt;
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ name}}</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modalInfo.dismiss('')">!</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="modalInfo.dismiss('')" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</ng-template>-->
+
+<!--<ng-template #popupDataOk>
+  <app-popup-info [data]="'Спасибо за заказ!'"></app-popup-info>
+</ng-template>
+<ng-template #popupDataNull>
+  <app-popup-info [data]="'Товар не добавлен в корзину! Выберите сначала чай!'"></app-popup-info>
+</ng-template>
+<ng-template #popupDataErr>
+  <app-popup-info [data]="'Произошла ошибка. Попробуйте еще раз.'"></app-popup-info>
+</ng-template>-->
+<!--<button class="btn btn-lg btn-outline-primary" (click)="open('jkjkj')">Launch demo modal</button>-->
+<!--
+<app-popup-full [dataOk]="'Спасибо за заказ!'"></app-popup-full>
+<app-popup-full [dataNull]="'Товар не добавлен в корзину! Выберите сначала чай!'"></app-popup-full>
+<app-popup-full [dataErr]="'Произошла ошибка. Попробуйте еще раз.'"></app-popup-full>
+-->

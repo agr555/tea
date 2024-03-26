@@ -1,0 +1,17 @@
+<ng-template #popupFull let-modalFull>
+<div class="" id="modal">
+<!--<div class="modal" id="myModalFull">-->
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{data}}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modalFull.dismiss('')">!</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modalFull.dismiss('')" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" routerLink="/products" (click)="modalFull.dismiss('')">Смотреть</button>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template>

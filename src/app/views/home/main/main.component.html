@@ -1,0 +1,56 @@
+<section class="slider">
+  <div class="container">
+    <section class="single-item d-block w-100 py-5 g-0 position-relative">
+      <div class="image  ">
+        <img src="assets/images/tea1.png" class="w-100" alt="Slick 1">
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="container ">
+    <div class="faq-block  py-5 px-2 px-lg-5">
+      <div class="faq-block-title fw-bold fs-2 text-center pb-5 px-xl-5 ">
+        Ответы на часто задаваемые вопросы
+      </div>
+
+      <div class="faq-block-items border-bottom-0 mb-2 px-xl-5">
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+          <ngb-panel title="Собираете ли вы подарочные боксы" class="rounded-3 mb-2">
+            <ng-template ngbPanelContent>
+              Да, у нас есть такая услуга. Мы можем собрать подарочный бокс на любой вкус, объем и
+              стоимость!
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel title=" Сколько у вас разновидностей чая?" class="rounded-3 mb-2">
+            <ng-template ngbPanelContent>
+              В настоящее время их около 15, однако наш ассортимент постоянно пополняется. Кроме того, Вы можете
+              написать нам об интересующем вас продукте и мы обязательно привезем его в кратчайшие сроки специально для
+              Вас!
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel title="В какой срок осуществляется доставка?" class="rounded-3 mb-2">
+            <ng-template ngbPanelContent>
+              Доставка в любые регионы расчитывается в зависимости от удаленности получателя.
+              Минимальный срок доставки - 1 день.
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel title="У вас обновляется ассортимент?" class="rounded-3 mb-2">
+            <ng-template ngbPanelContent>
+              Минимальный срок доставки - 1 день.
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel title="ВКакого объема у вас пачки чая?" class="rounded-3 mb-2">
+            <ng-template ngbPanelContent>
+              Обычно пачки чая имеют вес 100г. Но специально для Вас мы можем упаковать любое количество продукта,
+              причем минимальный все составляет всего 25г, максимальный неограничен.
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-popup-full [data]="'Посмотрите наши чайные коллекции!'"></app-popup-full>
