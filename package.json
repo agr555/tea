@@ -6,13 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-<<<<<<< HEAD
     "build-ng":  "ng build --output-path docs --base-href /tea/",
-=======
-
-    "build-ng":  "ng build --output-path docs --base-href /tea-collection/",
-
->>>>>>> bd7b97731baa7a3eea88a60123370aa26cf63a41
     "test": "ng test"
   },
   "private": true,
