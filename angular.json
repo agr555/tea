@@ -34,9 +34,7 @@
               "node_modules/wowjs/css/libs/animate.css",
               "src/styles.scss"
             ],
-            "scripts": ["node_modules/jquery/dist/jquery.min.js",
-
-
+            "scripts": ["node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {

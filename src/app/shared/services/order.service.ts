@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class OrderService {
     name: string, last_name: string, phone: string, country: string, zip: string,
     product: string, address: string, comment: string
   }) {
-    return this.http.post<{ success: boolean, message?: string }>(`https://testologia.site/order-tea`, data);
+    // return this.http.post<{ success: boolean, message?: string }>(`https://testologia.site/order-tea`, data);
+    return this.http.post<{ success: boolean, message?: string }>(environment.apiURL+`order-tea`, data);
   }
 
 }

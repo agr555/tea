@@ -5,6 +5,7 @@ import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ProductType} from "../../../types/product.type";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {environment} from "../../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,9 @@ export class ProductService {
 
 
   getProducts(findStr?: string): void {
-    const url = 'https://testologia.site/tea';
+    // const url = 'https://testologia.site/tea';
+    const url = environment.apiURL+ '/tea';
+    // const subscription = this.http.get<ProductType[]>(findStr ? `${url}?search=${findStr}` : url);
     const subscription = this.http.get<ProductType[]>(findStr ? `${url}?search=${findStr}` : url);
     this.loading.next(true);
     subscription.subscribe(
@@ -59,7 +62,11 @@ export class ProductService {
 
 
   getProduct(id: number): Observable<ProductType> {
-    return this.http.get<ProductType>(`https://testologia.site/tea?id=${id}`);
+  //  return this.http.get<ProductType>(`https://testologia.site/tea?id=${id}`);
+    return this.http.get<ProductType>(environment.apiURL+ `/tea?id=${id}`);
+
+
+
   }
 
   setTitle(title: string) {
