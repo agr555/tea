@@ -7,6 +7,7 @@ import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {OrderComponent} from "./order.component";
 import {NgbModalModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgBootstrapFormValidationModule} from "ng-bootstrap-form-validation";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {NgbModalModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
     OrderRoutingModule,
     NgbModalModule,
     NgbModule,
+    NgBootstrapFormValidationModule
   ],
   exports: [
     OrderRoutingModule

@@ -112,7 +112,7 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.modalService.open(this.popup, {})
     this.errorOrder = document.getElementById('errorOrder');
     this.subscription = this.activatedRoute.queryParams.subscribe((params) => {
-      if  (params['product']) {
+      if  (params['product']) { //!изменить для симуляции ошибки получения наименования
         this.formValues.productTitle = params['product'];
       } else {
         const modalRef = this.modalService1.open(PopupInfoComponent);
@@ -131,7 +131,7 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
   closeResult = '';
 
   createOrder(): void {
-    if (!this.formValues.productTitle) {
+    if (!this.formValues.productTitle) {// !изменить для симуляции ошибки получения наименования
       this.open(this.popupInfo, 'Товар не добавлен в корзину! Выберите сначала чай!')
       const modalRef = this.modalService1.open(PopupInfoComponent);
       modalRef.componentInstance.name = 'Товар не добавлен в корзину! Выберите сначала чай!';
@@ -139,7 +139,7 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
         (reason) => {
           this.closeResult = `Dismissed ${reason}`;
           this.modalService.dismissAll();
-          this.router.navigate(['/']);
+          this.router.navigate(['/products']);
         },
       );
 
@@ -147,8 +147,8 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.subscriptionOrder = this.orderService.sendOrder({
-      name: '',
-      // name: this.formValues.name,
+      // name: '',//симуляция ошибки отправки заказа
+      name: this.formValues.name,
       last_name: this.formValues.last_name,
       phone: this.formValues.phone,
       country: this.formValues.country,
@@ -167,7 +167,10 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
               modalRef.result.then(
                 (reason) => {
                   this.closeResult = `Dismissed ${reason}`;
+                  this.modalService1.dismissAll();
                   this.modalService.dismissAll();
+                  this.router.navigate(['/']);
+
                 },
               );
               this.formValues = {
@@ -182,13 +185,10 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
               }
             } else {
               if (this.errorOrder) this.errorOrder.style.display = 'block';
+              const modalRef = this.modalService1.open(PopupInfoComponent)
+              modalRef.componentInstance.name = 'Произошла ошибка. Попробуйте еще раз.';
               this.modalSubscription = this.modalObservable.subscribe((): void => {
-                const modalRef = this.modalService1.open(PopupInfoComponent)
-                modalRef.componentInstance.name = 'Произошла ошибка. Попробуйте еще раз.';
-
-
-
-
+                this.modalService1.dismissAll();
                 console.log('no ok')
               })
             }

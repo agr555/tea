@@ -13,6 +13,7 @@ import {ProductService} from "./shared/services/product.service";
 import {SharedModule} from "./shared/shared.module";
 import {CommonModule} from "@angular/common";
 import {FinderService} from "./shared/services/finder.service";
+import {NgBootstrapFormValidationModule} from "ng-bootstrap-form-validation";
 declare var $: any;
 @NgModule({
   declarations: [
@@ -36,12 +37,11 @@ declare var $: any;
     FormsModule,
     SharedModule,
     NgbCollapseModule,
-    NgbModalModule
-    // CoreModule,
+    NgbModalModule,
+    NgBootstrapFormValidationModule.forRoot()
 
   ],
 
-  // providers: [ ProductService, OrderService, ModalService, FinderService],
   providers: [ ProductService,  FinderService, NgbActiveModal],//, OrderService, ModalService, FinderService],
   bootstrap: [AppComponent]
 
