@@ -5,7 +5,13 @@ import { AppComponent } from './app.component';
 import { NgwWowModule } from 'ngx-wow';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule,ReactiveFormsModule} from "@angular/forms";
-import {NgbActiveModal, NgbCollapseModule, NgbModalModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  NgbCarouselConfig,
+  NgbCollapseModule,
+  NgbModalModule,
+  NgbModule
+} from '@ng-bootstrap/ng-bootstrap';
 import {LayoutComponent} from "./views/layout.component";
 import {HeaderComponent} from "./shared/components/layout/header/header.component";
 import {FooterComponent} from "./shared/components/layout/footer/footer.component";
@@ -42,7 +48,7 @@ declare var $: any;
 
   ],
 
-  providers: [ ProductService,  FinderService, NgbActiveModal],//, OrderService, ModalService, FinderService],
+  providers: [ ProductService,  FinderService, NgbActiveModal,NgbCarouselConfig],//, OrderService, ModalService, FinderService],
   bootstrap: [AppComponent]
 
 })
