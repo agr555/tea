@@ -1,16 +1,15 @@
 <!--<ng-template #popupInfo let-modalInfo>-->
-  <div class="" id="modal" >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{ name }}</h5>
-          <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('')">!</button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('')" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
+<div class="" id="modal">
+
+  <div class="modal-header">
+    <h5 class="modal-title">{{ name }}</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('')"></button>
   </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('')" data-bs-dismiss="modal">Close
+    </button>
+  </div>
+
+</div>
 <!--</ng-template>-->
 

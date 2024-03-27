@@ -164,15 +164,17 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
 
               const modalRef = this.modalService1.open(PopupInfoComponent);
               modalRef.componentInstance.name = 'Спасибо за заказ!';
-              modalRef.result.then(
-                (reason) => {
-                  this.closeResult = `Dismissed ${reason}`;
-                  this.modalService1.dismissAll();
-                  this.modalService.dismissAll();
+              modalRef.result.then((result) => {
+                if ( result === 'success' ) {
                   this.router.navigate(['/']);
+                }
+              }, (reason) => {
+                this.router.navigate(['/']);
+                this.closeResult = `Dismissed ${reason}`;
+                this.modalService1.dismissAll();
+                this.modalService.dismissAll();
+              });
 
-                },
-              );
               this.formValues = {
                 name: '',
                 last_name: '',

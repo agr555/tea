@@ -12,9 +12,9 @@ export class FindNamePipe implements PipeTransform {
     this.inputStr = (document.getElementById('findStr') as HTMLInputElement).value.toLowerCase();
     console.log(this.inputStr);
     if (this.inputStr) {
-      console.log(products.filter(item => item.title.toLowerCase().includes(this.inputStr)));
+      console.log(products.filter(item => item.title.toLowerCase().includes((this.inputStr).toLowerCase())));
       // location. reload()
-      return products.filter(item => item.title.toLowerCase().includes(this.inputStr))
+      return products.filter(item => item.title.toLowerCase().includes((this.inputStr).toLowerCase()))
     } else {
       console.log(products);
       return products;
