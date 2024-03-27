@@ -1,87 +1,71 @@
-<!--@if (images) {-->
 <div class="hard2">
 
+  <div class="container">
+    <ngb-carousel>
 
-<ngb-carousel>
-<!--  <ng-template ngbSlide>
-    <div class="picsum-img-wrapper">
-      <img [src]="images[0]" alt="Random first slide"/>
-    </div>
-    <div class="carousel-caption">
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="picsum-img-wrapper">
-      <img [src]="images[1]" alt="Random second slide"/>
-    </div>
-    <div class="carousel-caption">
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="picsum-img-wrapper">
-      <img [src]="images[2]" alt="Random third slide"/>
-    </div>
-    <div class="carousel-caption">
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </div>
-  </ng-template>-->
-  <ng-template ngbSlide>
-    <div class="image  py-4   ">
-      <img src="assets/images/image-10.png" class="w-100" alt="Slick 1">
-      <div class="block position-absolute top-50 start-0 ps-lg-5 px-2 translate-middle-y ">
-        <!--d-md-block  d-none">-->
-        <div class="image-block  top-0 start-0 px-5">
-          <div class="image-block-title  px-sm-5 px-3 pt-5 lh-sm fw-bold"
-               style="font-size: calc(0.300rem + 1.9vw)">Скидки на травянные чаи
-          </div>
-          <div class="image-block-text px-md-5  pt-3 px-sm-5 px-4"
-               style="font-size: calc(0.300rem + 0.8vw)">Узнай все подробности, заполнив заявку
-          </div>
-          <button class="btn btn-primary hvr-round-corners m-2 m-sm-5  px-sm-5 px-4"
-                  style="font-size: calc(0.300rem + 1.9vw)" [routerLink]="['/products']">Заказать
-          </button>
+      <ng-template ngbSlide>
+        <div class="image  py-4   ">
+          <img src="assets/images/tea1.png" class="w-100" alt="Slick 1">
         </div>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="image  py-4  ">
-      <img src="assets/images/image2all.png" class="w-100" alt="Slick 2">
-      <div class="block position-absolute top-50 start-0 ps-lg-5 px-2 translate-middle-y ">
-        <div class="image-block  top-0 start-0 px-5">
-          <div class="image-block-title  w-75 px-sm-5 px-3 pt-5 lh-sm fw-bold"
-               style="font-size: calc(0.325rem + 1.9vw)">Закажи три пачки чая и получи подарок
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="image  py-4   ">
+          <img src="assets/images/image-10.png" class="w-100" alt="Slick 2">
+          <div class="block position-absolute top-50 start-0 ps-lg-5 px-2 translate-middle-y ">
+            <!--d-md-block  d-none">-->
+            <div class="image-block  top-0 start-0 px-5">
+              <div class="image-block-title  px-sm-5 px-3 pt-5 lh-sm fw-bold"
+                   style="font-size: calc(0.300rem + 1.9vw)">Скидки на травянные чаи
+              </div>
+              <div class="image-block-text px-md-5  pt-3 px-sm-5 px-4"
+                   style="font-size: calc(0.300rem + 0.8vw)">Узнай все подробности, заполнив заявку
+              </div>
+              <button class="btn btn-primary hvr-round-corners m-2 m-sm-5  px-sm-5 px-4"
+                      style="font-size: calc(0.300rem + 1.9vw)" [routerLink]="['/products']">Смотреть
+              </button>
+            </div>
           </div>
-          <button class="btn btn-primary hvr-round-corners m-2 m-sm-5  px-sm-5 px-4"
-                  style="font-size: calc(0.325rem + 1.9vw)" [routerLink]="['/products']">Заказать
-          </button>
         </div>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="image py-4 ">
-      <img src="assets/images/image-9.png" class="w-100" alt="Slick 3">
-      <div class="block position-absolute top-50 start-0 ps-lg-5 px-2 translate-middle-y ">
-        <div class="image-block  top-0 start-0 px-5">
-          <div class="image-block-title  px-sm-5 px-3 pt-5 lh-sm fw-bold"
-               style="font-size: calc(0.325rem + 1.9vw)">Попробуй нашу новинку
-          </div>
-          <div class="image-block-title  px-sm-5 px-3 lh-sm fw-bold"
-               style="font-size: calc(0.325rem + 1.9vw)">— ягодный чай
-          </div>
-          <button class="btn btn-primary hvr-round-corners m-2 m-sm-5  px-sm-5 px-4"
-                  style="font-size: calc(0.325rem + 1.9vw)" [routerLink]="['/products']">Заказать
-          </button>
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="image  py-4  ">
+          <img src="assets/images/tea2.png" class="w-100" alt="Slick 3">
         </div>
-      </div>
-      </div>
-  </ng-template>
-</ngb-carousel>
-<!--}-->
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="image  py-4   ">
+          <img src="assets/images/image-8.png" class=" d-block w-100" alt="Slick 2">
+          <div class="position-absolute start-0 top-50  translate-middle-y translate-middle-x px-2 ps-lg-5  ">
+            <div class="ps-lg-5">
+              <span class="d-block h1 mb-2 mb-lg-5 w-75">Закажи три пачки чая и получи подарок</span>
+              <button class="btn btn-primary hvr-round-corners" [routerLink]="['/products']">Заказать</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="image py-4 ">
+          <img src="assets/images/image-9.png" class="w-100" alt="Slick 5">
+          <div class="block position-absolute top-50 start-0 ps-lg-5 px-2 translate-middle-y ">
+            <div class="image-block  top-0 start-0 px-5">
+              <div class="image-block-title  px-sm-5 px-3 pt-5 lh-sm fw-bold"
+                   style="font-size: calc(0.325rem + 1.9vw)">Попробуй нашу новинку
+              </div>
+              <div class="image-block-title  px-sm-5 px-3 lh-sm fw-bold"
+                   style="font-size: calc(0.325rem + 1.9vw)">— ягодный чай
+              </div>
+              <button class="btn btn-primary hvr-round-corners m-2 m-sm-5  px-sm-5 px-4"
+                      style="font-size: calc(0.325rem + 1.9vw)" [routerLink]="['/products']">Заказать
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="image  py-4   ">
+          <img src="assets/images/tea3.png" class="w-100" alt="Slick 6">
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
 </div>
