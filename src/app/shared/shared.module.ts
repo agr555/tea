@@ -12,7 +12,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import { PopupFullComponent } from './components/popup-full/popup-full.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
-import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbCarouselConfig, NgbCarouselModule, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 
 
@@ -24,6 +25,8 @@ import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
     ShorterPipePipe,
     PopupFullComponent,
     PopupInfoComponent,
+    CarouselComponent,
+
   ],
   imports: [
     CommonModule,
@@ -33,7 +36,9 @@ import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
     FormsModule ,
     ReactiveFormsModule,
     NgwWowModule,
-    NgbModalModule
+    NgbModalModule,
+
+    NgbCarouselModule,
 
   ],
   exports: [
@@ -46,7 +51,8 @@ import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
     ReactiveFormsModule,
     FormsModule,
     PopupFullComponent,
-    PopupInfoComponent
+    PopupInfoComponent,
+    CarouselComponent,
   ]
 })
 export class SharedModule { }
