@@ -12,7 +12,8 @@ import {Subject} from "rxjs";
 
 export class HeaderComponent implements OnInit {
   findStr: string = '';
-  isCollapsed = false;
+
+isCollapsed = false;
   public userActivated: Subject<string> = new Subject<string>();
 
   inputStr1: HTMLInputElement | null = null;
