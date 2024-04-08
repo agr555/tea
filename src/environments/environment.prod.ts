@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiURL: 'https://testologia.site/',
+  apiURL: 'https://testologia.ru/',
 
 };
